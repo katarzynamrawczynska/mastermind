@@ -2,7 +2,6 @@ import random
 
 def create_code(avilable_colors, lenght):
     code = random.choices(avilable_colors, k=lenght)
-    print(f"code {code}")
     return code
 
 def get_guess(avilable_colors, lenght_of_code):
@@ -23,14 +22,25 @@ def game():
     avilable_colors = "BWR"
     rounds = 12
     lenght_of_code = 4
-    secret_code = create_code(avilable_colors, lenght_of_code)
-    actual_round = 1
-    while actual_round <= rounds:
-        print(f"Round {actual_round}")
-        guess = get_guess(avilable_colors, lenght_of_code)
-        hits, close = check_guess(guess, secret_code)
-        print(f"Hits: {hits}, Close: {close}")
+    while True:
+        secret_code = create_code(avilable_colors, lenght_of_code)
+        actual_round = 1
+        while actual_round <= rounds:
+            print(f"Round {actual_round}")
+            guess = get_guess(avilable_colors, lenght_of_code)
+            hits, close = check_guess(guess, secret_code)
+            print(f"Hits: {hits}, Close: {close}")
+            if hits == lenght_of_code:
+                break
+            actual_round += 1
+            
+        if hits == lenght_of_code:
+            print("Congratulation!")
+        else:
+            print("Looser!")
+        next_game = input("Do you want to play again? (Y/N)").upper()
+        if next_game == "N":
+            break
 
 
-#game()
-print(get_guess("ASDFG", 4))
+game()
